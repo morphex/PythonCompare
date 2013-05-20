@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, glob
+import os, glob, sys
 
 cwd = os.getcwd()
 
@@ -8,15 +8,15 @@ jdk = glob.glob('jdk*.tar.gz')
 if len(jdk) > 1:
     print 'Too many jdks in directory', jdk
     sys.exit(1)
+if len(jdk) == 0:
+    print 'No jdk available, download from http://www.oracle.com/technetwork/java/javase/downloads/index.html and put into', cwd
+    sys.exit(1)
 
 os.system('tar xfz %s' % jdk[0])
 
 folders = glob.glob('jdk1*')
 if len(folders) > 1:
     print 'Too many potential jdk folders'
-    sys.exit(1)
-if len(folders) == 0:
-    print 'No jdk available, download from http://www.oracle.com/technetwork/java/javase/downloads/index.html and put into', cwd
     sys.exit(1)
 
 jdk_path = os.path.join(cwd, folders[0])
